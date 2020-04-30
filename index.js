@@ -1,6 +1,7 @@
 
 const games = JSON.parse(goods).goods;
 const container = document.querySelector('.container');
+const searchForm = document.querySelector('#searchForm');
 
 function gameCardRender(params){
     const { name, id, image, price } = params;
@@ -23,7 +24,6 @@ function getData(gamesData){
     let context = document.createElement('div');
         context.classList.add("row", "row-cols-2", "row-cols-md-4", "test");
     gamesData.forEach(function(params){
-    
         context.insertAdjacentHTML('afterbegin',gameCardRender(params));
     getDataContent.push(context);
 }
@@ -33,3 +33,14 @@ function getData(gamesData){
 
 container.append(...getData(games));
 
+
+function searchingGames(event){
+    let introduceGame = event.target.value.toLowerCase().trim();
+    const resultSearch = games.filter((item)=>{
+        return item.name.toLowerCase().trim().indexOf(introduceGame) > -1;
+    })
+    container.innerHTML = '';
+    return container.append(...getData(resultSearch));
+}
+
+searchForm.addEventListener('input', searchingGames);
