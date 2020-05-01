@@ -2,6 +2,9 @@
 const games = JSON.parse(goods).goods;
 const container = document.querySelector('.container');
 const searchForm = document.querySelector('#searchForm');
+const sortByPrice = document.querySelector('#price');
+const sortByDateRelease = document.querySelector('#release_date');
+
 
 function gameCardRender(params){
     const { name, id, image, price } = params;
@@ -25,14 +28,13 @@ function getData(gamesData){
         context.classList.add("row", "row-cols-2", "row-cols-md-4", "test");
     gamesData.forEach(function(params){
         context.insertAdjacentHTML('afterbegin',gameCardRender(params));
-    getDataContent.push(context);
+            getDataContent.push(context);
 }
 );
     return getDataContent;
 };
 
 container.append(...getData(games));
-
 
 function searchingGames(event){
     let introduceGame = event.target.value.toLowerCase().trim();
@@ -43,4 +45,40 @@ function searchingGames(event){
     return container.append(...getData(resultSearch));
 }
 
+function sortingPrice(event){
+    event.preventDefault();
+    const resultSortByPrice = games.sort((a,b)=>{
+        //console.log(a);
+        console.log(b);
+        if (a.price > b.price){
+            return -1;
+        }
+        if (a.price < b.price){
+            return 1;
+        }
+        return 0;
+    })
+    container.innerHTML = '';
+    return container.append(...getData(resultSortByPrice));
+}
+
+function sortingDateRelease(event){
+    event.preventDefault();
+    const resultSortByDate = games.sort((a,b)=>{
+        //console.log(a);
+        console.log(b);
+        if (a.date > b.date){
+            return -1;
+        }
+        if (a.price < b.price){
+            return 1;
+        }
+        return 0;
+    })
+    container.innerHTML = '';
+    return container.append(...getData(resultSortByDate));
+}
+
 searchForm.addEventListener('input', searchingGames);
+sortByPrice.addEventListener('click', sortingPrice);
+sortByDateRelease.addEventListener('click', sortingDateRelease);
