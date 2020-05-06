@@ -1,3 +1,5 @@
+
+// удалить
 const games = {
   "goods": [
     {
