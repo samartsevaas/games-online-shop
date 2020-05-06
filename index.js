@@ -1,3 +1,4 @@
+
 const container = document.querySelector('.container');
 container.insertAdjacentHTML('afterbegin', `
 <div class="row row-cols-2 row-cols-md-4">
