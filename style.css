@@ -1,3 +1,8 @@
+button {
+  border: none;
+  background-color: #fff;
+}
+
 .card-body {
   background-color: #00122f;
   color: #f0f0f0;

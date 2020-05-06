@@ -22,10 +22,10 @@ function gameCardRender(params){
     </div>`);
 }
 
-function getData(gamesData){
+function getData(gamesData = []){
     let getDataContent = [];
     let context = document.createElement('div');
-        context.classList.add("row", "row-cols-2", "row-cols-md-4", "test");
+        context.classList.add("row", "row-cols-2", "row-cols-md-4");
     gamesData.forEach(function(params){
         context.insertAdjacentHTML('afterbegin',gameCardRender(params));
             getDataContent.push(context);
@@ -36,49 +36,46 @@ function getData(gamesData){
 
 container.append(...getData(games));
 
+function initResult(results){
+    container.innerHTML = '';
+    return container.append(...getData(results));
+}
+
+function gamesNotFound (){
+    container.innerHTML ='';
+    const gamesNotFound = document.createElement('div');
+    gamesNotFound.innerHTML = 'Games not found';
+    return container.append(gamesNotFound);
+}
+
 function searchingGames(event){
     let introduceGame = event.target.value.toLowerCase().trim();
     const resultSearch = games.filter((item)=>{
         return item.name.toLowerCase().trim().indexOf(introduceGame) > -1;
-    })
-    container.innerHTML = '';
-    return container.append(...getData(resultSearch));
+    });
+    if(resultSearch.length != 0){
+        initResult(resultSearch);
+    }else {
+    gamesNotFound();
+    }
 }
 
-function sortingPrice(event){
+
+function sortingBy (event, sortField ='price', games){
     event.preventDefault();
-    const resultSortByPrice = games.sort((a,b)=>{
-        //console.log(a);
-        console.log(b);
-        if (a.price > b.price){
+    const resultSortBy = games.sort((a,b)=>{
+        if (a[sortField] > b[sortField]){
             return -1;
         }
-        if (a.price < b.price){
+        if (a[sortField] < b[sortField]){
             return 1;
         }
         return 0;
     })
-    container.innerHTML = '';
-    return container.append(...getData(resultSortByPrice));
-}
-
-function sortingDateRelease(event){
-    event.preventDefault();
-    const resultSortByDate = games.sort((a,b)=>{
-        //console.log(a);
-        console.log(b);
-        if (a.date > b.date){
-            return -1;
-        }
-        if (a.price < b.price){
-            return 1;
-        }
-        return 0;
-    })
-    container.innerHTML = '';
-    return container.append(...getData(resultSortByDate));
+    initResult(resultSortBy);
 }
 
 searchForm.addEventListener('input', searchingGames);
-sortByPrice.addEventListener('click', sortingPrice);
-sortByDateRelease.addEventListener('click', sortingDateRelease);
+sortByPrice.addEventListener('click', () => sortingBy(event,'price', games));
+sortByDateRelease.addEventListener('click',() => sortingBy(event,'date',games));
+
