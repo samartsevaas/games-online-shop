@@ -1,11 +1,3 @@
-
-const games = JSON.parse(goods).goods;
-const container = document.querySelector('.container');
-const searchForm = document.querySelector('#searchForm');
-const sortByPrice = document.querySelector('#price');
-const sortByDateRelease = document.querySelector('#release_date');
-
-
 function gameCardRender(params){
     const { name, id, image, price } = params;
     return (`
@@ -61,7 +53,7 @@ function searchingGames(event){
 }
 
 
-function sortingBy (event, sortField ='price', games){
+function sortingByIncrease (event, sortField ='price', games){
     event.preventDefault();
     const resultSortBy = games.sort((a,b)=>{
         if (a[sortField] > b[sortField]){
@@ -74,8 +66,32 @@ function sortingBy (event, sortField ='price', games){
     })
     initResult(resultSortBy);
 }
+function sortingByDecrease (event, sortField ='price', games){
+    event.preventDefault();
+    const resultSortBy = games.sort((a,b)=>{
+        if (a[sortField] < b[sortField]){
+            return -1;
+        }
+        if (a[sortField] > b[sortField]){
+            return 1;
+        }
+        return 0;
+    })
+    initResult(resultSortBy);
+}
+
+function goPagination(event, page, games){
+    event.preventDefault();
+    console.log(games);
+    const spliceGamesFirst = games.splice(9,games.length);
+    initResult(spliceGamesFirst);
+}
+
 
 searchForm.addEventListener('input', searchingGames);
-sortByPrice.addEventListener('click', () => sortingBy(event,'price', games));
-sortByDateRelease.addEventListener('click',() => sortingBy(event,'date',games));
-
+sortByPriceIncrease.addEventListener('click', () => sortingByIncrease(event,'price', games));
+sortByPriceDecrease.addEventListener('click', () => sortingByDecrease(event,'price', games));
+sortByDateRelease.addEventListener('click',() => sortingByIncrease(event,'date',games));
+firstPage.addEventListener('click', () => goPagination(event, 'firstPage', games));
+secondPage.addEventListener('click', () => goPagination(event, 'secondPage', games));
+thirdPage.addEventListener('click', () => goPagination(event, 'thirdPage', games));
