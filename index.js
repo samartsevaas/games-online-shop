@@ -53,7 +53,7 @@ function searchingGames(event){
     const resultSearch = games.filter((item)=>{
         return item.name.toLowerCase().trim().indexOf(introduceGame) > -1;
     });
-    if(resultSearch.length != 0){
+    if(resultSearch.length){
         initResult(resultSearch);
     }else {
     gamesNotFound();
