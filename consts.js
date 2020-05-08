@@ -5,4 +5,3 @@ const sortByPriceIncrease = document.querySelector('#priceIncrease');
 const sortByPriceDecrease = document.querySelector('#priceDecrease');
 const sortByDateRelease = document.querySelector('#release_date');
 const pagination = document.querySelector('#pagination');
-let selectedPage;

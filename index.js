@@ -13,11 +13,24 @@ function gameCardRender(params){
     </div>
     </div>`);
 }
+function addPagination(){
+    let numbersOfPage = Math.ceil((games.length/8));
+    let addPagesLi = [];
+    for(let i = 1; i <= numbersOfPage; i++){
+        addPagesLi += (`<li class="page-item">
+        <a class="page-link" href="#" data-page='${i}'>${i}</a>
+        </li>
+        `);
+    }
+    return addPagesLi;
+    
+}
+pagination.append(...addPagination());
 
 function getData(gamesData = []){
     let getDataContent = [];
     let context = document.createElement('div');
-        context.classList.add("row", "row-cols-2", "row-cols-md-4");
+    context.classList.add("row", "row-cols-2", "row-cols-md-4");
     gamesData.forEach(function(params){
         context.insertAdjacentHTML('afterbegin',gameCardRender(params));
             getDataContent.push(context);
@@ -91,15 +104,14 @@ function goPagination(event, games){
     initResult(spliceGamesFirst);
 }
 
-function test (event) {
+function activePage (event) {
     let target = event.target; 
     if (target.tagName != 'A') return;
     highlight(target); 
   }
   
-
+let selectedPage;
 function highlight(test) {
-    
     if (selectedPage) { 
           selectedPage.classList.remove('active');
     }
@@ -112,5 +124,7 @@ searchForm.addEventListener('input', searchingGames);
 sortByPriceIncrease.addEventListener('click', () => sortingByIncrease(event,'price', games));
 sortByPriceDecrease.addEventListener('click', () => sortingByDecrease(event,'price', games));
 sortByDateRelease.addEventListener('click',() => sortingByIncrease(event,'date',games));
-pagination.addEventListener('click', () => goPagination(event, games));
-pagination.addEventListener('click', () => test(event));
+pagination.addEventListener('click', () => {
+    activePage(event);
+    goPagination(event, games);
+});
