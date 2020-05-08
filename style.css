@@ -1,3 +1,8 @@
+button {
+  border: none;
+  background-color: #fff;
+}
+
 .card-body {
   background-color: #00122f;
   color: #f0f0f0;
@@ -17,5 +22,9 @@
 
 .mb-2 {
   margin-left: 108px;
+}
+
+.sort a:hover {
+  text-decoration: none;
 }
 /*# sourceMappingURL=style.css.map */
