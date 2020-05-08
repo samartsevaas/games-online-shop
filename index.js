@@ -80,18 +80,37 @@ function sortingByDecrease (event, sortField ='price', games){
     initResult(resultSortBy);
 }
 
-function goPagination(event, page, games){
+function goPagination(event, games){
     event.preventDefault();
-    console.log(games);
-    const spliceGamesFirst = games.splice(9,games.length);
+    let target = event.target;
+    const currentPage = target.dataset.page;
+    const gamesTotalCount = 8;
+    const setRange = currentPage * gamesTotalCount;
+    const spliceGamesFirst = games.slice(setRange - gamesTotalCount,setRange);
+
     initResult(spliceGamesFirst);
 }
+
+function test (event) {
+    let target = event.target; 
+    if (target.tagName != 'A') return;
+    highlight(target); 
+  }
+  
+
+function highlight(test) {
+    
+    if (selectedPage) { 
+          selectedPage.classList.remove('active');
+    }
+    selectedPage = test;
+    test.classList.add('active');
+  }
 
 
 searchForm.addEventListener('input', searchingGames);
 sortByPriceIncrease.addEventListener('click', () => sortingByIncrease(event,'price', games));
 sortByPriceDecrease.addEventListener('click', () => sortingByDecrease(event,'price', games));
 sortByDateRelease.addEventListener('click',() => sortingByIncrease(event,'date',games));
-firstPage.addEventListener('click', () => goPagination(event, 'firstPage', games));
-secondPage.addEventListener('click', () => goPagination(event, 'secondPage', games));
-thirdPage.addEventListener('click', () => goPagination(event, 'thirdPage', games));
+pagination.addEventListener('click', () => goPagination(event, games));
+pagination.addEventListener('click', () => test(event));
