@@ -15,7 +15,7 @@ function gameCardRender(params){
 }
 function addPagination(){
     let numbersOfPage = Math.ceil((games.length/8));
-    let addPagesLi = [];
+    let addPagesLi = '';
     for(let i = 1; i <= numbersOfPage; i++){
         addPagesLi += (`<li class="page-item">
         <a class="page-link" href="#" data-page='${i}'>${i}</a>
@@ -25,7 +25,8 @@ function addPagination(){
     return addPagesLi;
     
 }
-pagination.append(...addPagination());
+
+pagination.innerHTML = addPagination()
 
 function getData(gamesData = []){
     let getDataContent = [];
