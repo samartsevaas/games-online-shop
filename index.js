@@ -1,11 +1,3 @@
-
-const games = JSON.parse(goods).goods;
-const container = document.querySelector('.container');
-const searchForm = document.querySelector('#searchForm');
-const sortByPrice = document.querySelector('#price');
-const sortByDateRelease = document.querySelector('#release_date');
-
-
 function gameCardRender(params){
     const { name, id, image, price } = params;
     return (`
@@ -21,11 +13,25 @@ function gameCardRender(params){
     </div>
     </div>`);
 }
+function addPagination(){
+    let numbersOfPage = Math.ceil((games.length/8));
+    let addPagesLi = '';
+    for(let i = 1; i <= numbersOfPage; i++){
+        addPagesLi += (`<li class="page-item">
+        <a class="page-link" href="#" data-page='${i}'>${i}</a>
+        </li>
+        `);
+    }
+    return addPagesLi;
+    
+}
+
+pagination.innerHTML = addPagination()
 
 function getData(gamesData = []){
     let getDataContent = [];
     let context = document.createElement('div');
-        context.classList.add("row", "row-cols-2", "row-cols-md-4");
+    context.classList.add("row", "row-cols-2", "row-cols-md-4");
     gamesData.forEach(function(params){
         context.insertAdjacentHTML('afterbegin',gameCardRender(params));
             getDataContent.push(context);
@@ -61,7 +67,7 @@ function searchingGames(event){
 }
 
 
-function sortingBy (event, sortField ='price', games){
+function sortingByIncrease (event, sortField ='price', games){
     event.preventDefault();
     const resultSortBy = games.sort((a,b)=>{
         if (a[sortField] > b[sortField]){
@@ -74,8 +80,52 @@ function sortingBy (event, sortField ='price', games){
     })
     initResult(resultSortBy);
 }
+function sortingByDecrease (event, sortField ='price', games){
+    event.preventDefault();
+    const resultSortBy = games.sort((a,b)=>{
+        if (a[sortField] < b[sortField]){
+            return -1;
+        }
+        if (a[sortField] > b[sortField]){
+            return 1;
+        }
+        return 0;
+    })
+    initResult(resultSortBy);
+}
+
+function goPagination(event, games){
+    event.preventDefault();
+    let target = event.target;
+    const currentPage = target.dataset.page;
+    const gamesTotalCount = 8;
+    const setRange = currentPage * gamesTotalCount;
+    const spliceGamesFirst = games.slice(setRange - gamesTotalCount,setRange);
+
+    initResult(spliceGamesFirst);
+}
+
+function activePage (event) {
+    let target = event.target; 
+    if (target.tagName != 'A') return;
+    highlight(target); 
+  }
+  
+let selectedPage;
+function highlight(test) {
+    if (selectedPage) { 
+          selectedPage.classList.remove('active');
+    }
+    selectedPage = test;
+    test.classList.add('active');
+  }
+
 
 searchForm.addEventListener('input', searchingGames);
-sortByPrice.addEventListener('click', () => sortingBy(event,'price', games));
-sortByDateRelease.addEventListener('click',() => sortingBy(event,'date',games));
-
+sortByPriceIncrease.addEventListener('click', () => sortingByIncrease(event,'price', games));
+sortByPriceDecrease.addEventListener('click', () => sortingByDecrease(event,'price', games));
+sortByDateRelease.addEventListener('click',() => sortingByIncrease(event,'date',games));
+pagination.addEventListener('click', () => {
+    activePage(event);
+    goPagination(event, games);
+});
