@@ -1,3 +1,9 @@
+import '../styles/index.scss'
+import data from '../goods.json';
+import {  container, searchForm, sortByPriceIncrease, sortByPriceDecrease, sortByDateRelease, pagination } from './consts';
+const games = data.goods;
+
+
 function gameCardRender(params){
     const { name, id, image, price } = params;
     return (`
@@ -129,3 +135,4 @@ pagination.addEventListener('click', () => {
     activePage(event);
     goPagination(event, games);
 });
+
