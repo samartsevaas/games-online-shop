@@ -1,184 +1,123 @@
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <title>Best Games</title>
-</head>
-<body>
-    <div>
-    <form class="form-inline d-flex md-form form-sm active-cyan-2 mt-2 mb-2">
-        <input id='searchForm' class="form-control form-control-sm mr-3 w-75" type="text" placeholder="Search"
-          aria-label="Search">
-        <i class="fas fa-search" aria-hidden="true"></i>
-      </form>
-      <div id="catalog_sorter" class="sort i-sort md-form form-sm active-cyan-2 mt-2 mb-2">
-        <span>Сортировать по:</span>
-        <button type="button" id="priceIncrease">
-          <span>цене возрастания</span>
-        </button>
-        <button type="button" id="priceDecrease">
-          <span>цене убывания</span>
-        </button>
-        <button type="button" id="release_date">
-          <span>дате выхода</span>
-        </button>
-      </div>
-    <section class="container"></section>
-    <nav aria-label="page navigation" class="container">
-      <ul id="pagination" class="pagination justify-content-center">
-        <!-- <li class="page-item ">
-          <a class="page-link" href="#" aria-label="Previous">
-            <span aria-hidden="true">&laquo;</span>
-          </a>
-        </li>
-        <li class="page-item"><a class="page-link" href="#" id="firstPage" data-page="1">1</a></li>
-        <li class="page-item" aria-current="page">
-          <a class="page-link" href="#" id="secondPage" data-page="2">2</a>
-        </li>
-        <li class="page-item"><a class="page-link" href="#" id="thirdPage" data-page="3">3</a></li>
-        <li class="page-item">
-          <a class="page-link" href="#" aria-label="Next">
-            <span aria-hidden="true">&raquo;</span>
-          </a>
-        </li> -->
-      </ul>
-    </nav>
-    
-</div>
-
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-<script>
-  var goods = JSON.stringify({
+{
   "goods": [
     {
-      "id": 'battlefield4',
+      "id": "battlefield4",
       "name": "Battlefield 4",
       "price": 2000,
       "image": "https://media.contentapi.ea.com/content/dam/gin/images/2017/01/bf4-keyart.jpg.adapt.crop191x100.628p.jpg",
       "date": "2019-05-25"
     },
     {
-      "id": 'battlefield3',
+      "id": "battlefield3",
       "name": "Battlefield 3",
       "price": 500,
       "image": "https://media.contentapi.ea.com/content/dam/gin/images/2017/01/bf3-keyart.jpg.adapt.crop191x100.628p.jpg",
       "date": "2012-05-25"
     },
     {
-      "id": 'daysGone',
+      "id": "daysGone",
       "name": "Days Gone",
       "price": 4000,
       "image": "https://i2.wp.com/www.gamzadrot.com/wp-content/uploads/2019/04/days-gone-review-790x444.jpg?fit=790%2C444&ssl=1",
       "date": "2019-06-26"
     },
     {
-      "id": 'lastOfus',
+      "id": "lastOfus",
       "name": "Last of us",
       "price": 3000,
       "image": "https://b1.filmpro.ru/c/816656.700xp.jpg",
       "date": "2017-05-23"
     },
     {
-      "id": 'fifa2020',
+      "id": "fifa2020",
       "name": "Fifa 2020",
       "price": 2000,
       "image": "https://store.playstation.com/store/api/chihiro/00_09_000/container/RU/ru/999/EP0006-CUSA15546_00-FIFAFOOTBALL2020/1588811112000/image?w=240&h=240&bg_color=000000&opacity=100&_version=00_09_000",
       "date": "2017-05-23"
     },
     {
-      "id": 'fifa2019',
+      "id": "fifa2019",
       "name": "Fifa 2019",
       "price": 1500,
       "image": "https://keyg.net/uploads/posts/2018-12/1544460911_fifa-19.jpg",
       "date": "2017-05-23"
     },
     {
-      "id": 'sims4',
+      "id": "sims4",
       "name": "Sims 4",
       "price": 2200,
       "image": "https://i.playground.ru/e/UDWWFg__vdmulgoQ3RLCOg.jpeg",
       "date": "2017-05-23"
     },
     {
-      "id": 'bioshock',
+      "id": "bioshock",
       "name": "Bioshock infinity",
       "price": 1100,
       "image": "https://upload.wikimedia.org/wikipedia/ru/3/35/BioShock_Infinite.jpeg",
       "date": "2017-05-23"
     },
     {
-      "id": 'farcry5',
+      "id": "farcry5",
       "name": "Far cry 5",
       "price": 2700,
       "image": "https://cdn.shazoo.ru/203852_bSpb0BDJ4V_fc.jpg",
       "date": "2017-05-23"
     },
     {
-      "id": 'lastOfus2',
+      "id": "lastOfus2",
       "name": "Last of us 2",
       "price": 5500,
       "image": "https://cdn.vox-cdn.com/thumbor/xBBNgq8HQbuX7GlLpHvq8OCJryI=/0x0:3840x2160/1200x800/filters:focal(1993x639:2607x1253)/cdn.vox-cdn.com/uploads/chorus_image/image/66740425/LastofUsPart2.0.jpg",
       "date": "2020-06-19"
     },
     {
-      "id": 'nfs',
+      "id": "nfs",
       "name": "NFS",
       "price": 500,
       "image": "https://upload.wikimedia.org/wikipedia/ru/1/1f/Need_for_Speed_Heat.jpg",
       "date": "2017-05-23"
     },
     {
-      "id": 'cyberpank',
+      "id": "cyberpank",
       "name": "Cyberpank 2077",
       "price": 4000,
       "image": "https://upload.wikimedia.org/wikipedia/ru/thumb/b/bb/%D0%9E%D0%B1%D0%BB%D0%BE%D0%B6%D0%BA%D0%B0_%D0%BA%D0%BE%D0%BC%D0%BF%D1%8C%D1%8E%D1%82%D0%B5%D1%80%D0%BD%D0%BE%D0%B9_%D0%B8%D0%B3%D1%80%D1%8B_Cyberpunk_2077.jpg/274px-%D0%9E%D0%B1%D0%BB%D0%BE%D0%B6%D0%BA%D0%B0_%D0%BA%D0%BE%D0%BC%D0%BF%D1%8C%D1%8E%D1%82%D0%B5%D1%80%D0%BD%D0%BE%D0%B9_%D0%B8%D0%B3%D1%80%D1%8B_Cyberpunk_2077.jpg",
       "date": "2017-05-23"
     },
     {
-      "id": 'ufc3',
+      "id": "ufc3",
       "name": "UFC 3",
       "price": 3100,
       "image": "https://images-na.ssl-images-amazon.com/images/I/61TWXk1%2BdRL._AC_SY741_.jpg",
       "date": "2017-05-23"
     },
     {
-      "id": 'forest',
+      "id": "forest",
       "name": "The Forest",
       "price": 1200,
       "image": "https://store.playstation.com/store/api/chihiro/00_09_000/container/RU/ru/19/EP0238-CUSA12398_00-THEFOREST0000000/image?w=960&h=960&bg_color=000000&opacity=100&_version=00_09_000",
       "date": "2017-05-23"
     },
     {
-      "id": 'uncharted',
+      "id": "uncharted",
       "name": "Uncharted",
       "price": 2550,
       "image": "https://psmedia.playstation.com/is/image/psmedia/uncharted-4-listing-thumb-01-ps4-eu-22apr16?$Icon$",
       "date": "2017-05-23"
     },
     {
-      "id": 'mortalCombat',
+      "id": "mortalCombat",
       "name": "Mortal combat",
       "price": 3000,
       "image": "https://funpay.ru/img/circles/motral_kombat-4.jpg",
       "date": "2017-05-23"
     },
     {
-      "id": 'metro2033',
+      "id": "metro2033",
       "name": "Metro 2033",
       "price": 2299,
       "image": "https://store.playstation.com/store/api/chihiro/00_09_000/container/RU/ru/999/EP4062-CUSA11407_00-METROEXODUS00000/1588454347000/image?w=360&h=360&bg_color=000000&opacity=100&_version=00_09_000",
       "date": "2017-05-23"
-    },
+    }
   ]
-})
-</script>
-<script src="consts.js"></script>
-<script src="index.js"></script>
-</body>
-</html>
+}
