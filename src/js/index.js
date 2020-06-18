@@ -1,57 +1,13 @@
-import '../styles/index.scss'
+import '../styles/index.scss';
+import '../js/pagination';
 import data from '../goods.json';
-import {  container, searchForm, sortByPriceIncrease, sortByPriceDecrease, sortByDateRelease, pagination } from './consts';
-const games = data.goods;
-
-
-function gameCardRender(params){
-    const { name, id, image, price } = params;
-    return (`
-    <div class="col-xs-4">
-    <div id="${id}" class="card h-100 ml-2">
-        <img src="${image}" class="card-img-top" alt="">
-            <div class="card-body">
-                <h5 class="card-title" id="battlefield3Title">${name}</h5>
-            </div>
-        <div class="card-footer">
-            <small id="battlefield3Price" class="text-muted">${price} RUB </small>
-        </div>
-    </div>
-    </div>`);
-}
-function addPagination(){
-    let numbersOfPage = Math.ceil((games.length/8));
-    let addPagesLi = '';
-    for(let i = 1; i <= numbersOfPage; i++){
-        addPagesLi += (`<li class="page-item">
-        <a class="page-link" href="#" data-page='${i}'>${i}</a>
-        </li>
-        `);
-    }
-    return addPagesLi;
-    
-}
-
-pagination.innerHTML = addPagination()
-
-function getData(gamesData = []){
-    let getDataContent = [];
-    let context = document.createElement('div');
-    context.classList.add("row", "row-cols-2", "row-cols-md-4");
-    gamesData.forEach(function(params){
-        context.insertAdjacentHTML('afterbegin',gameCardRender(params));
-            getDataContent.push(context);
-}
-);
-    return getDataContent;
-};
+import { container, searchForm, sortByPriceIncrease, sortByPriceDecrease, sortByDateRelease, pagination } from './consts';
+export const games = data.goods;
+import {addPagination, goPagination, activePage, highlight} from './pagination';
+import {initResult , gameCardRender, getData} from './utils';
 
 container.append(...getData(games));
 
-function initResult(results){
-    container.innerHTML = '';
-    return container.append(...getData(results));
-}
 
 function gamesNotFound (){
     container.innerHTML ='';
@@ -66,7 +22,7 @@ function searchingGames(event){
         return item.name.toLowerCase().trim().indexOf(introduceGame) > -1;
     });
     if(resultSearch.length){
-        initResult(resultSearch);
+        initResult(resultSearch, container);
     }else {
     gamesNotFound();
     }
@@ -84,7 +40,7 @@ function sortingByIncrease (event, sortField ='price', games){
         }
         return 0;
     })
-    initResult(resultSortBy);
+    initResult(resultSortBy, container);
 }
 function sortingByDecrease (event, sortField ='price', games){
     event.preventDefault();
@@ -97,34 +53,10 @@ function sortingByDecrease (event, sortField ='price', games){
         }
         return 0;
     })
-    initResult(resultSortBy);
+    initResult(resultSortBy, container);
 }
 
-function goPagination(event, games){
-    event.preventDefault();
-    let target = event.target;
-    const currentPage = target.dataset.page;
-    const gamesTotalCount = 8;
-    const setRange = currentPage * gamesTotalCount;
-    const spliceGamesFirst = games.slice(setRange - gamesTotalCount,setRange);
 
-    initResult(spliceGamesFirst);
-}
-
-function activePage (event) {
-    let target = event.target; 
-    if (target.tagName != 'A') return;
-    highlight(target); 
-  }
-  
-let selectedPage;
-function highlight(test) {
-    if (selectedPage) { 
-          selectedPage.classList.remove('active');
-    }
-    selectedPage = test;
-    test.classList.add('active');
-  }
 
 
 searchForm.addEventListener('input', searchingGames);
@@ -132,7 +64,9 @@ sortByPriceIncrease.addEventListener('click', () => sortingByIncrease(event,'pri
 sortByPriceDecrease.addEventListener('click', () => sortingByDecrease(event,'price', games));
 sortByDateRelease.addEventListener('click',() => sortingByIncrease(event,'date',games));
 pagination.addEventListener('click', () => {
-    activePage(event);
+    activePage(event,games);
     goPagination(event, games);
 });
 
+
+pagination.innerHTML = addPagination(games);
